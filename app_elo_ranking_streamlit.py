@@ -99,4 +99,4 @@ df = df.sort_values("Score", ascending=False)
 # ----------------------------
 # Affichage
 # ----------------------------
-st.dataframe(df[["summoner", "tier", "lp", "wins", "losses", "winrate"]], use_container_width=True)
+st.dataframe(df[["summoner", "tier", "lp", "wins", "losses"]], use_container_width=True)
