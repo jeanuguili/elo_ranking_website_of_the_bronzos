@@ -34,22 +34,21 @@ def get_rank_from_opgg(url):
     # Exemple de contenu : "RoidDesBronzes#EUW / Bronze 2 82LP / 17Victoire 10Défaite % de victoire 63%"
     summoner = content.split(" / ")[0]
     tier_lp = content.split(" / ")[1] if " / " in content else ""
-    match = re.search(r"(\d+)Victoire (\d+)Défaite.*?(\d+)%", content)
+    match = re.search(r"(\d+)Win (\d+)Lose", content)
 
     tier = " ".join(tier_lp.split()[:2])  # ex: "Bronze 2"
     lp = tier_lp.split()[-1] if "LP" in tier_lp else "0 LP"
 
-    wins, losses, winrate = "-", "-", "-"
+    wins, losses = "-", "-"
     if match:
-        wins, losses, winrate = match.groups()
+        wins, losses = match.groups()
 
     return {
         "summoner": summoner,
         "tier": tier,
         "lp": lp,
         "wins": wins,
-        "losses": losses,
-        "winrate": f"{winrate}%",
+        "losses": losses
     }
 
 # ----------------------------
