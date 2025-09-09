@@ -136,8 +136,7 @@ for i, row in enumerate(df.to_dict(orient="records")):
     with st.container():
         st.markdown(
             f"""
-            <div style="background-color:{color};padding:15px;border-radius:10px;margin:10px 0;display:flex;align-items:center;">
-                <img src="{team_logo}" alt="{team_name}" style="width:50px;height:50px;border-radius:50%;margin-right:15px;">
+            <div style="background-color:{color};padding:15px;border-radius:10px;margin:10px 0;display:flex;align-items:center;justify-content:space-between;">
                 <div>
                     <h3 style="margin:0;">
                         {medal} {row['summoner']}
@@ -153,6 +152,7 @@ for i, row in enumerate(df.to_dict(orient="records")):
                         | {row['wins']}W / {row['losses']}L
                     </p>
                 </div>
+                <img src="{team_logo}" alt="{team_name}" style="width:50px;height:50px;border-radius:50%;margin-left:15px;">
             </div>
             """,
             unsafe_allow_html=True,
