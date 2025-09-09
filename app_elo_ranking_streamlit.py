@@ -152,7 +152,7 @@ for i, row in enumerate(df.to_dict(orient="records")):
                         | {row['wins']}W / {row['losses']}L
                     </p>
                 </div>
-                <img src="{team_logo}" alt="{team_name}" style="width:50px;height:50px;border-radius:50%;margin-left:15px;">
+                <img src="{team_logo}" alt="{team_name}" style="width:100px;height:100px;border-radius:50%;margin-left:15px;">
             </div>
             """,
             unsafe_allow_html=True,
