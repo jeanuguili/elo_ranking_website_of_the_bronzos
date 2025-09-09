@@ -13,10 +13,19 @@ PLAYERS = {
     "Errewyn-K C": "https://www.op.gg/summoners/euw/Errewyn-K%20C"
 }
 
-TEAMS = {
-    "RoidDesBronzes#EUW": "RoyalBronzes",
-    "Errewyn#K C": "Super DeOliveira Bros",
-    "Buldoshield#1123": "La Belle et la Bête"  # à définir plus tard
+TEAM_INFO = {
+    "RoidDesBronzes#EUW": {
+        "name": "RoyalBronzes",
+        "logo": "https://raw.githubusercontent.com/jeanuguili/elo_ranking_website_of_the_bronzos/main/images/royalbronzes2.jpg"  # à remplacer par ton logo
+    },
+    "Buldoshield#1123": {
+        "name": "La Belle et la Bête",
+        "logo": "https://raw.githubusercontent.com/jeanuguili/elo_ranking_website_of_the_bronzos/main/images/belleetlabete2.jpg"
+    },
+    "Errewyn#K C": {
+        "name": "Super DeOliveira Bros",
+        "logo": "https://raw.githubusercontent.com/jeanuguili/elo_ranking_website_of_the_bronzos/main/images/image_dobros_2.jpg"  # mets l'image que tu viens d’uploader
+    }
 }
 
 # ----------------------------
@@ -119,26 +128,31 @@ for i, row in enumerate(df.to_dict(orient="records")):
     medal = medals[i] if i < 3 else "🎮"
     color = colors[i] if i < 3 else "#444444"
 
-    # Récupération du nom d'équipe
-    team_name = TEAMS.get(row["summoner"], "Sans équipe")
+    # Vérification si le joueur a une équipe
+    team_data = TEAM_INFO.get(row["summoner"], {"name": "Sans équipe", "logo": ""})
+    team_name = team_data["name"]
+    team_logo = team_data["logo"]
 
     with st.container():
         st.markdown(
             f"""
-            <div style="background-color:{color};padding:15px;border-radius:10px;margin:10px 0;">
-                <h3 style="margin:0;">
-                    {medal} {row['summoner']}
-                    <a href="{row['url']}" target="_blank" style="font-size:12px; color:#000; text-decoration:none; margin-left:8px;">
-                        (op.gg page 🔗)
-                    </a>
-                </h3>
-                <p style="margin:0; font-size:14px; color:#222;">
-                    <i>{team_name}</i>
-                </p>
-                <p style="margin:0;">
-                    <b>{row['tier']}</b> {row['lp']}  
-                    | {row['wins']}W / {row['losses']}L
-                </p>
+            <div style="background-color:{color};padding:15px;border-radius:10px;margin:10px 0;display:flex;align-items:center;">
+                <img src="{team_logo}" alt="{team_name}" style="width:50px;height:50px;border-radius:50%;margin-right:15px;">
+                <div>
+                    <h3 style="margin:0;">
+                        {medal} {row['summoner']}
+                        <a href="{row['url']}" target="_blank" style="font-size:12px; color:#000; text-decoration:none; margin-left:8px;">
+                            (op.gg page 🔗)
+                        </a>
+                    </h3>
+                    <p style="margin:0; font-size:14px; color:#222;">
+                        <i>{team_name}</i>
+                    </p>
+                    <p style="margin:0;">
+                        <b>{row['tier']}</b> {row['lp']}  
+                        | {row['wins']}W / {row['losses']}L
+                    </p>
+                </div>
             </div>
             """,
             unsafe_allow_html=True,
