@@ -120,7 +120,7 @@ for i, row in enumerate(df.to_dict(orient="records")):
                 <h3 style="margin:0;">
                     {medal} {row['summoner']}
                     <a href="{row['url']}" target="_blank" style="font-size:12px; color:#000; text-decoration:none; margin-left:8px;">
-                        (op.gg)
+                        (op.gg page 🔗)
                     </a>
                 </h3>
                 <p style="margin:0;">
