@@ -23,13 +23,13 @@ def get_rank_from_opgg(url):
 
     meta = soup.find("meta", {"name": "description"})
     if not meta:
-        return {"summoner": url, "tier": "Unranked", "lp": "-", "wins": "-", "losses": "-", "winrate": "-"}
+        return {"summoner": url, "tier": "Unranked", "lp": "-", "wins": "-", "losses": "-", "url": url}
 
     content = meta["content"]
 
     # Si le joueur n'a pas de ranked
     if "Lv." in content:
-        return {"summoner": content.split(" / ")[0], "tier": "Unranked", "lp": "-", "wins": "-", "losses": "-", "winrate": "-"}
+        return {"summoner": content.split(" / ")[0], "tier": "Unranked", "lp": "-", "wins": "-", "losses": "-", "url": url}
 
     # Exemple de contenu : "RoidDesBronzes#EUW / Bronze 2 82LP / 17Victoire 10Défaite % de victoire 63%"
     summoner = content.split(" / ")[0]
@@ -48,7 +48,8 @@ def get_rank_from_opgg(url):
         "tier": tier,
         "lp": lp,
         "wins": wins,
-        "losses": losses
+        "losses": losses,
+        "url": url
     }
 
 # ----------------------------
@@ -116,7 +117,12 @@ for i, row in enumerate(df.to_dict(orient="records")):
         st.markdown(
             f"""
             <div style="background-color:{color};padding:15px;border-radius:10px;margin:10px 0;">
-                <h3 style="margin:0;">{medal} {row['summoner']}</h3>
+                <h3 style="margin:0;">
+                    {medal} {row['summoner']}
+                    <a href="{row['url']}" target="_blank" style="font-size:12px; color:#000; text-decoration:none; margin-left:8px;">
+                        (op.gg)
+                    </a>
+                </h3>
                 <p style="margin:0;">
                     <b>{row['tier']}</b> {row['lp']}  
                     | {row['wins']}W / {row['losses']}L
