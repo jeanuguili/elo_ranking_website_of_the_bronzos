@@ -13,6 +13,12 @@ PLAYERS = {
     "Errewyn-K C": "https://www.op.gg/summoners/euw/Errewyn-K%20C"
 }
 
+TEAMS = {
+    "RoidDesBronzes#EUW": "RoyalBronzes",
+    "Errewyn#K C": "Super DeOliveira Bros",
+    "Buldoshield#1123": "La Belle et la Bête"  # à définir plus tard
+}
+
 # ----------------------------
 # Fonction pour récupérer le meta
 # ----------------------------
@@ -113,6 +119,9 @@ for i, row in enumerate(df.to_dict(orient="records")):
     medal = medals[i] if i < 3 else "🎮"
     color = colors[i] if i < 3 else "#444444"
 
+    # Récupération du nom d'équipe
+    team_name = TEAMS.get(row["summoner"], "Sans équipe")
+
     with st.container():
         st.markdown(
             f"""
@@ -123,6 +132,9 @@ for i, row in enumerate(df.to_dict(orient="records")):
                         (op.gg page 🔗)
                     </a>
                 </h3>
+                <p style="margin:0; font-size:14px; color:#222;">
+                    <i>{team_name}</i>
+                </p>
                 <p style="margin:0;">
                     <b>{row['tier']}</b> {row['lp']}  
                     | {row['wins']}W / {row['losses']}L
