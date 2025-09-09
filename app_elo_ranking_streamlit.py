@@ -99,4 +99,29 @@ df = df.sort_values("Score", ascending=False)
 # ----------------------------
 # Affichage
 # ----------------------------
-st.dataframe(df[["summoner", "tier", "lp", "wins", "losses"]], use_container_width=True)
+#st.dataframe(df[["summoner", "tier", "lp", "wins", "losses"]], use_container_width=True)
+# ----------------------------
+# Affichage custom
+# ----------------------------
+medals = ["🥇", "🥈", "🥉"]
+colors = ["#FFD700", "#C0C0C0", "#CD7F32"]  # or, argent, bronze
+
+st.subheader("Classement actuel")
+
+for i, row in enumerate(df.to_dict(orient="records")):
+    medal = medals[i] if i < 3 else "🎮"
+    color = colors[i] if i < 3 else "#444444"
+
+    with st.container():
+        st.markdown(
+            f"""
+            <div style="background-color:{color};padding:15px;border-radius:10px;margin:10px 0;">
+                <h3 style="margin:0;">{medal} {row['summoner']}</h3>
+                <p style="margin:0;">
+                    <b>{row['tier']}</b> {row['lp']}  
+                    | {row['wins']}W / {row['losses']}L
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
